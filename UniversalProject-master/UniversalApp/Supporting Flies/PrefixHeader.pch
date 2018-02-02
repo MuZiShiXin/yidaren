@@ -1,0 +1,133 @@
+//
+//  PrefixHeader.pch
+//  MiAiApp
+//
+//  Created by  apple on 2017/5/18.
+// //  Created by  apple on 2017/11/30.
+//  Copyright © 2017年 程序员. All rights reserved.
+//
+//
+//                            _ooOoo_
+//                           o8888888o
+//                           88" . "88
+//                           (| -_- |)
+//                            O\ = /O
+//                        ____/`---'\____
+//                      .   ' \\| |// `.
+//                       / \\||| : |||// \
+//                     / _||||| -:- |||||- \
+//                       | | \\\ - /// | |
+//                     | \_| ''\---/'' | |
+//                      \ .-\__ `-` ___/-. /
+//                   ___`. .' /--.--\ `. . __
+//                ."" '< `.___\_<|>_/___.' >'"".
+//               | | : `- \`.;`\ _ /`;.`/ - ` : | |
+//                 \ \ `-. \_ __\ /__ _/ .-` / /
+//         ======`-.____`-.___\_____/___.-`____.-'======
+//                            `=---='
+//
+//         .............................................
+//                  佛祖镇楼                  BUG辟易
+//          佛曰:
+//                  写字楼里写字间，写字间里程序员；
+//                  程序人员写程序，又拿程序换酒钱。
+//                  酒醒只在网上坐，酒醉还来网下眠；
+//                  酒醉酒醒日复日，网上网下年复年。
+//                  但愿老死电脑间，不愿鞠躬老板前；
+//                  奔驰宝马贵者趣，公交自行程序员。
+//                  别人笑我忒疯癫，我笑自己命太贱；
+//                  不见满街漂亮妹，哪个归得程序员？
+
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+
+
+
+#define IOS7  [[[UIDevice currentDevice] systemVersion] floatValue]
+//屏幕高度
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+//屏幕宽度
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+//判断是否为iPhone 5SE
+#define iPhone5SE [[UIScreen mainScreen] bounds].size.width == 320.0f && [[UIScreen mainScreen] bounds].size.height == 568.0f
+//判断是否为iPhone 6 / 6s / 7 / 8
+#define iPhone6_6s [[UIScreen mainScreen] bounds].size.width == 375.0f && [[UIScreen mainScreen] bounds].size.height == 667.0f
+//判断是否为iPhone 6Plus / 6sPlus / 7Plus / 8Plus
+#define iPhone6Plus_6sPlus [[UIScreen mainScreen] bounds].size.width == 414.0f && [[UIScreen mainScreen] bounds].size.height == 736.0f
+//判断是否为iPhone x
+#define iPhoneX [[UIScreen mainScreen] bounds].size.width == 375.0f && [[UIScreen mainScreen] bounds].size.height == 812.0f
+//iPhone x Nav+TabBar+电池条 = view高度
+#define iPhoneX_Nav_TabBar_Hight 171
+//iPhone  Nav+TabBar+电池条 = view高度
+#define iPhone_Nav_TabBar_Hight 113
+//iPhone x 起点
+#define iPhoneX_Hight 88
+//iPhone 起点
+#define iPhone_Hight 64
+//Navgation
+#define iNavgationTag 101
+//基础颜色
+#define kBaseColor @"ff6633"
+//蓝色
+#define kBlueColor @"27b8f3"
+//下划线
+#define kXiahuaxianColor @"e5e5e5"
+//背景
+#define kBeijingColor @"eef2f5"
+
+#define banxing @"ygdr_sy_nr_tb2"//ygdr_sy_nr_tb2 半星
+#define quanxing @"yg_sy_gdpj_nr_tb2"//yg_sy_gdpj_nr_tb2 全星
+#define meixing @"yg_sy_gdpj_nr_tb3"//yg_sy_gdpj_nr_tb3 没星
+
+
+//#define kPRTURL @"http://39.106.12.254:18080"  // 本地局域网
+//#define kPRTURL @"http://192.168.0.114:18080" // 李海龙
+#define kPRTURL @"http://192.168.1.14:18080" // 于庆涛
+
+
+//#ifdef __OBJC__
+//#ifdef DEBUG
+//#define NSLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+//#else
+//#define NSLog(...)
+//#endif
+//#endif
+#import "RankingTotalModel.h"//个人信息
+
+//全局宏
+#import "UtilsMacros.h"
+#import "URLMacros.h"
+#import "FontAndColorMacros.h"
+#import "ThirdMacros.h"
+#import "CommonMacros.h"
+
+//基础类
+#import "AppDelegate.h"
+#import "AppDelegate+AppService.h"
+#import "RootViewController.h"
+#import "RootNavigationController.h"
+#import "MBProgressHUD+XY.h"
+//#import "PPNetworkHelper.h"
+#import "AppManager.h"
+#import "ShareManager.h"
+#import "UserManager.h"
+#import "IMManager.h"
+#import "UIButton+XYButton.h"
+#import "HexColors.h"
+#import "UILabel+HeightANDWidth.h"
+#import "BaseHttpTool.h"
+#import "NSDictionary+CDictionary.h"
+#import "LKBubble.h"
+#import "UITableView+EmptyData.h"
+
+//第三方
+#import <YYKit.h>
+#import <MBProgressHUD.h>
+#import <Masonry.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <RongIMKit/RongIMKit.h>
+
+
+#endif /* PrefixHeader_pch */
