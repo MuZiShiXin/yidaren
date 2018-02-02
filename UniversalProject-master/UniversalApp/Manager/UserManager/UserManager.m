@@ -127,19 +127,25 @@ SINGLETON_FOR_CLASS(UserManager);
 
 #pragma mark ————— 自动登录到服务器 —————
 -(void)autoLoginToServer:(loginBlock)completion{
-    NSString *urlStr = [NSString stringWithFormat:@"%@/moble/login",kPRTURL];
-    NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"params"];
-    [BaseHttpTool GET:urlStr params:dic success:^(id  _Nullable responseObj) {
-        NSInteger result = [[responseObj valueForKey:@"result"] intValue];
-        if (result == 1) {
-            NSLog(@"登录成功");
-            //            KPostNotification(KNotificationLoginStateChange, @YES);
+    
+    if (userManager.curUserInfo.wanShanXinXi == 0) {
+        [self logout:nil];
+    }else
+    {
+        NSString *urlStr = [NSString stringWithFormat:@"%@/moble/login",kPRTURL];
+        NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"params"];
+        [BaseHttpTool GET:urlStr params:dic success:^(id  _Nullable responseObj) {
+            NSInteger result = [[responseObj valueForKey:@"result"] intValue];
+            if (result == 1) {
+                NSLog(@"登录成功");
+                //            KPostNotification(KNotificationLoginStateChange, @YES);
+                
+                [self LoginSuccess:responseObj completion:completion];
+            }
+        } failure:^(NSError * _Nullable error) {
             
-            [self LoginSuccess:responseObj completion:completion];
-        }
-    } failure:^(NSError * _Nullable error) {
-        
-    }];
+        }];
+    }
 }
 
 #pragma mark ————— 登录成功处理 —————

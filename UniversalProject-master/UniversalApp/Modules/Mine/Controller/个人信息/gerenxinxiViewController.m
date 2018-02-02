@@ -272,6 +272,13 @@
     
     if ([self.WanShanXinXi isEqualToString:@"完善信息"]) {
         self.title = @"请完善个人信息";
+        UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        but.frame =CGRectMake( 15, 20, 60, 44);
+        [but setTitle:@"返回"forState:UIControlStateNormal];
+        [but setTitleColor:[UIColor hx_colorWithHexRGBAString:kBlueColor] forState:UIControlStateNormal];
+        [but addTarget:self action:@selector(blackBtn:)forControlEvents:UIControlEventTouchUpInside];
+        [self.navigationController.view addSubview:but];
     }else
     {
         self.title = @"个人信息";
@@ -317,7 +324,41 @@
     }];
 }
 
-
+- (void)blackBtn:(UIButton *)btn
+{
+    NSString *str = @"";
+    if (userManager.curUserInfo.wanShanXinXi == 1) {
+        str = @"信息以完善,是否进入首页";
+    }else
+    {
+        str = @"信息未完善,点击确定将退出当前登录";
+    }
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"提示"
+                         message:str
+                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+        handler:^(UIAlertAction * action) {
+            //响应事件
+        NSLog(@"action = %@", action);
+    }];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
+        handler:^(UIAlertAction * action) {
+        //响应事件
+        NSLog(@"action = %@", action);
+        if (userManager.curUserInfo.wanShanXinXi == 0) {
+            [userManager logout:nil];
+        }else
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+                                                             
+    }];
+    
+    [alert addAction:defaultAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 - (IBAction)genggaitouxiangLabel {
     DLog(@"点击头像");
@@ -846,13 +887,6 @@
             YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
             NSDictionary *dic = [userManager.curUserInfo modelToJSONObject];
             [cache setObject:dic forKey:KUserModelCache];
-            if ([self.WanShanXinXi isEqualToString:@"完善信息"]) {
-                if (wanShanXinXi == 1) {
-                    self.isShowLiftBack = YES;
-                    [self.view showRightWithTitle:@"信息完善成功" autoCloseTime:2];
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
-            }
         }else
         {
             [self showErrorWithTitle:@"图片上传失败" autoCloseTime:2];
@@ -880,13 +914,7 @@
             YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
             NSDictionary *dic = [userManager.curUserInfo modelToJSONObject];
             [cache setObject:dic forKey:KUserModelCache];
-            if ([self.WanShanXinXi isEqualToString:@"完善信息"]) {
-                if (wanShanXinXi == 1) {
-                    self.isShowLiftBack = YES;
-                    [self.view showRightWithTitle:@"信息完善成功" autoCloseTime:2];
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
-            } 
+             
         }else
         {
             [self showErrorWithTitle:@"修改失败" autoCloseTime:2];
