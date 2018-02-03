@@ -59,7 +59,7 @@
 
 @property (nonatomic ,strong)NSArray *WorkTypeAry;
 
-
+@property (nonatomic ,strong)UIButton *but;
 
 @end
 
@@ -214,6 +214,7 @@
     [super viewWillAppear:animated];
     if ([self.WanShanXinXi isEqualToString:@"完善信息"]) {
         self.isShowLiftBack = NO;
+        self.but.hidden = NO;
     }
 }
 
@@ -272,13 +273,13 @@
     
     if ([self.WanShanXinXi isEqualToString:@"完善信息"]) {
         self.title = @"请完善个人信息";
-        UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.but = [UIButton buttonWithType:UIButtonTypeCustom];
         
-        but.frame =CGRectMake( 15, 20, 60, 44);
-        [but setTitle:@"返回"forState:UIControlStateNormal];
-        [but setTitleColor:[UIColor hx_colorWithHexRGBAString:kBlueColor] forState:UIControlStateNormal];
-        [but addTarget:self action:@selector(blackBtn:)forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationController.view addSubview:but];
+        _but.frame =CGRectMake( 15, 20, 60, 44);
+        [_but setTitle:@"返回"forState:UIControlStateNormal];
+        [_but setTitleColor:[UIColor hx_colorWithHexRGBAString:kBlueColor] forState:UIControlStateNormal];
+        [_but addTarget:self action:@selector(blackBtn:)forControlEvents:UIControlEventTouchUpInside];
+        [self.navigationController.view addSubview:_but];
     }else
     {
         self.title = @"个人信息";
@@ -347,9 +348,11 @@
         //响应事件
         NSLog(@"action = %@", action);
         if (userManager.curUserInfo.wanShanXinXi == 0) {
+            [self.but removeAllSubviews];
             [userManager logout:nil];
         }else
         {
+            [self.but removeAllSubviews];
             [self.navigationController popViewControllerAnimated:YES];
         }
                                                              
@@ -410,6 +413,7 @@
     NSLog(@"昵称");
     NicknameChangeViewController *NicknameChangeVC = [[NicknameChangeViewController alloc]init];
     NicknameChangeVC.BiaoTiTitleLabelText = @"昵称";
+    self.but.hidden = YES;
     __block __typeof(self) weakSelf = self;
     [NicknameChangeVC setBlock:^(NSString *Str)
      {
@@ -509,6 +513,8 @@
     DLog(@"工种");
     __weak typeof (self)weakself = self;
     WorkTypeSViewController *WorkTypeSVC = [[WorkTypeSViewController alloc]init];
+    self.but.hidden = YES;
+
     WorkTypeSVC.WorkTypeDate = _WorkTypeAry;
     [WorkTypeSVC setBlock:^(NSString *Str) {
         weakself.gongzhongLabel.text = Str;
@@ -620,6 +626,7 @@
 - (IBAction)shenfenzhengxinxi {
     NSLog(@"身份证信息");
     NicknameChangeViewController *NicknameChangeVC = [[NicknameChangeViewController alloc]init];
+    self.but.hidden = YES;
     NicknameChangeVC.BiaoTiTitleLabelText = @"身份证号";
     __block __typeof(self) weakSelf = self;
     [NicknameChangeVC setBlock:^(NSString *Str)

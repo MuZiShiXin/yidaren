@@ -215,8 +215,8 @@
                                                 <constraint firstAttribute="width" constant="22" id="tse-36-fca"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="身份证号:230101199012122121" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6J-qb-pf6">
-                                            <rect key="frame" x="121" y="330.5" width="212.5" height="30"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6J-qb-pf6">
+                                            <rect key="frame" x="333.5" y="330.5" width="0.0" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="hdf-fW-ib0"/>
                                             </constraints>
