@@ -76,7 +76,7 @@
 {
     NSString *urlStr = [NSString stringWithFormat:@"%@/Expert/ExpertHomePage/expertHomeDetailInfo",kPRTURL];
     
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(self.recruitInfoId),@"recruitInfoId", nil];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(self.recruitInfoId),@"recruitInfoId",@(self.x),@"x",@(self.y),@"y", nil];
     
     [BaseHttpTool POST:urlStr params:parameters success:^(id  _Nullable responseObj) {
         NSLog(@"%@",responseObj);

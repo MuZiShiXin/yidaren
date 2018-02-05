@@ -60,7 +60,7 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
+        NSLog(@"%@",responseObject);
         if (success) {
                 success(responseObject);
             }
@@ -87,6 +87,7 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        NSLog(@"%@",responseObject);
         if (success) {
             success(responseObject);
         }

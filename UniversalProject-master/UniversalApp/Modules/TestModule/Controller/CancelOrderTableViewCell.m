@@ -54,11 +54,18 @@
     //设置背景颜色
     _yiquxiaoButton.layer.masksToBounds = NO;
     [self.yiquxiaoButton setTitle:[NSString stringWithFormat:@"%@",Model.orderState]  forState:UIControlStateNormal];
-    if ([Model.orderState isEqualToString:@"待完工"]||[Model.orderState isEqualToString:@"待到达"]||[Model.orderState isEqualToString:@"待评价"]){
+    if ([Model.orderState isEqualToString:@"待完工"]||[Model.orderState isEqualToString:@"待到达"]||[Model.orderState isEqualToString:@"待评价"]||[Model.orderState isEqualToString:@"掌柜已评价"]){
+        if ([Model.orderState isEqualToString:@"掌柜已评价"]) {
+            [_yiquxiaoButton setTitle:@"待评价" forState:UIControlStateNormal];
+        }
         _yiquxiaoButton.userInteractionEnabled = YES;
         _yiquxiaoButton.layer.borderColor = [[UIColor hx_colorWithHexRGBAString:@"27b8f3"] CGColor];
         [_yiquxiaoButton setTitleColor:[UIColor hx_colorWithHexRGBAString:kBlueColor] forState:UIControlStateNormal];
+    }else if ([Model.orderState isEqualToString:@"达人已评价"])
+    {
+        [_yiquxiaoButton setTitle:@"已评价" forState:UIControlStateNormal];
     }
+    
     
 }
 

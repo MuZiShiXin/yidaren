@@ -18,6 +18,8 @@
 @property ( nonatomic ,strong) NSMutableArray *ModelDic;
 @property (nonatomic, assign) NSInteger pages;
 @property (nonatomic, strong) BMKLocationService *locService;
+@property (assign, nonatomic) CGFloat x;
+@property (assign, nonatomic) CGFloat y;
 
 @end
 
@@ -84,11 +86,8 @@
                 [self.ModelDic addObject:mode];
             }
             [self mainTableView];
-            [self requestDataCompleted];
-        }else
-        {
-            
         }
+        [self requestDataCompleted];
     } failure:^(NSError * _Nullable error) {
         NSLog(@"loginError:%@",error);
         [self.mainTableView.mj_header endRefreshing];
@@ -120,8 +119,11 @@
 {
     
     NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
-    if (userLocation.location.coordinate.latitude != 0 && userLocation.location.coordinate.latitude != 0) {
+    if (userLocation.location.coordinate.latitude != 0 && userLocation.location.coordinate.longitude != 0) {
         [self httpRequest];
+        self.x = userLocation.location.coordinate.longitude;
+        self.y = userLocation.location.coordinate.latitude;
+        [self httpRequestmodifyPresentCoord];
     }else
     {
         [self httpRequest];
@@ -131,9 +133,17 @@
     [self.locService stopUserLocationService];
 }
 
+- (void)httpRequestmodifyPresentCoord
+{
+    NSString *urlStr = [NSString stringWithFormat:@"%@/BaiDuMap/modifyPresentCoord",kPRTURL];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(userManager.curUserInfo.userInfoId),@"userInfoId",@(1),@"DwState",@(_locService.userLocation.location.coordinate.longitude),@"xCoord",@(_locService.userLocation.location.coordinate.latitude),@"yCoord", nil];
+    [BaseHttpTool POST:urlStr params:parameters success:^(id  _Nullable responseObj) {
+        
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
 
-
-
+}
 
 
 #pragma mark -  logic delegate
@@ -176,16 +186,22 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //这里是cell的点击事件 点击了cell便触发这个函数
     NSLog(@"点击了cell");
-    GongDanXiangQingSViewController *GongDanXiangQingSVC = [[GongDanXiangQingSViewController alloc]init];
+    
 //    GongDanXiangQingSVC.homeModel = self.ModelDic[indexPath.row];
-    GongDanXiangQingSVC.recruitInfoId = [self.ModelDic [indexPath.row] recruitInfoId];
-    __block __typeof(self) weakSelf = self;
-    [GongDanXiangQingSVC setBlock:^(BOOL isBool) {
-        if (isBool) {
-            [weakSelf headerRereshing];
-        }
-    }];
-    [self.Navi pushViewController:GongDanXiangQingSVC animated:YES];
+    if (self.ModelDic.count != 0) {
+        GongDanXiangQingSViewController *GongDanXiangQingSVC = [[GongDanXiangQingSViewController alloc]init];
+        GongDanXiangQingSVC.recruitInfoId = [self.ModelDic [indexPath.row] recruitInfoId];
+        GongDanXiangQingSVC.y = self.y;
+        GongDanXiangQingSVC.x = self.x;
+        __block __typeof(self) weakSelf = self;
+        [GongDanXiangQingSVC setBlock:^(BOOL isBool) {
+            if (isBool) {
+                [weakSelf headerRereshing];
+            }
+        }];
+        [self.Navi pushViewController:GongDanXiangQingSVC animated:YES];
+    }
+    
 }
 
 

@@ -17,7 +17,9 @@
 #import "ChatListViewController.h"
 #import <RongIMKit/RCConversationViewController.h>
 #import <UShareUI/UShareUI.h>
-@interface MinesViewController ()
+#import <BaiduMapAPI_Location/BMKLocationService.h>
+
+@interface MinesViewController ()<BMKLocationServiceDelegate>
 @property (strong, nonatomic) IBOutlet UIButton *touxiangImageViewButton;
 @property (strong, nonatomic) IBOutlet UILabel *mingziLabel;
 @property (strong, nonatomic) IBOutlet UILabel *leijitianshu;
@@ -25,7 +27,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *benrigongzuoTimeLabel;
 @property (strong, nonatomic) IBOutlet UIButton *kaigongzhuangtaiButton;
 @property (strong, nonatomic) IBOutlet UIImageView *HeadImageView;
-
+@property (nonatomic, strong) BMKLocationService *locService;
+@property (assign, nonatomic) CGFloat x;
+@property (assign, nonatomic) CGFloat y;
 
 
 @end
@@ -41,10 +45,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
     self.isHidenNaviBar = YES;
     self.StatusBarStyle = UIStatusBarStyleLightContent;
     self.isShowLiftBack = NO;//每个根视图需要设置该属性为NO，否则会出现导航栏异常
     //给按钮设置角的弧度
+    _locService = [[BMKLocationService alloc]init];
+    _locService.delegate = self;
+    //启动LocationService
+    [_locService startUserLocationService];
     
     _HeadImageView.layer.cornerRadius = _HeadImageView.frame.size.height/2;
     //设置背景颜色
@@ -69,6 +78,20 @@
         NSLog(@"loginError:%@",error);
         
     }];
+}
+
+
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+
+{
+    
+    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
+    if (userLocation.location.coordinate.latitude != 0 && userLocation.location.coordinate.longitude != 0) {
+        [self httpRequest];
+        self.x = userLocation.location.coordinate.longitude;
+        self.y = userLocation.location.coordinate.latitude;
+        [self.locService stopUserLocationService];
+    }
 }
 
 
@@ -97,17 +120,37 @@
 - (IBAction)shifoukaigongzhuangtaiButton {
     DLog(@"开关状态");
     if (_kaigongzhuangtaiButton.selected) {
-        [_kaigongzhuangtaiButton setImage:[UIImage imageNamed:@"yg_xx_nr_tb2"] forState:UIControlStateNormal];
-        [self.view showRightWithTitle:@"关闭成功" autoCloseTime:2];
-        _kaigongzhuangtaiButton.selected = NO;
+        [self httpRequestmodifyPresentCoord:0];
     }else
     {
-        [_kaigongzhuangtaiButton setImage:[UIImage imageNamed:@"yg_xx_nr_tb1"] forState:UIControlStateNormal];
-        [self.view showRightWithTitle:@"开启成功" autoCloseTime:2];
-        _kaigongzhuangtaiButton.selected = YES;
+        [self httpRequestmodifyPresentCoord:1];
     }
 }
-
+- (void)httpRequestmodifyPresentCoord:(NSInteger)DwState
+{
+    NSString *urlStr = [NSString stringWithFormat:@"%@/BaiDuMap/modifyPresentCoord",kPRTURL];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(userManager.curUserInfo.userInfoId),@"userInfoId",@(DwState),@"DwState",@(self.x),@"xCoord",@(self.y),@"yCoord", nil];
+    [BaseHttpTool POST:urlStr params:parameters success:^(id  _Nullable responseObj) {
+        NSInteger result = [[responseObj objectForKey:@"result"] integerValue];
+        if (result == 1) {
+            if (_kaigongzhuangtaiButton.selected == YES) {
+                [self.view showRightWithTitle:@"关闭成功" autoCloseTime:2];
+                [_kaigongzhuangtaiButton setImage:[UIImage imageNamed:@"yg_xx_nr_tb2"] forState:UIControlStateNormal];
+                _kaigongzhuangtaiButton.selected = NO;
+            }else
+            {
+                [self.view showRightWithTitle:@"开启成功" autoCloseTime:2];
+                
+                [_kaigongzhuangtaiButton setImage:[UIImage imageNamed:@"yg_xx_nr_tb1"] forState:UIControlStateNormal];
+                _kaigongzhuangtaiButton.selected = YES;
+            }
+            
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
+    
+}
 
 
 - (IBAction)wodexiaoxiButton {
@@ -186,31 +229,12 @@
 
 - (IBAction)fenxiangButton {
     DLog(@"分享");
-    [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_Sina),@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_Qzone),@(UMSocialPlatformType_WechatSession),@(UMSocialPlatformType_Sms),@(UMSocialPlatformType_Email)]];
+    [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_WechatSession)]];
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
         // 根据获取的platformType确定所选平台进行下一步操作
         if (platformType == UMSocialPlatformType_WechatSession ||platformType == UMSocialPlatformType_WechatTimeLine) {
             [self shareToWeiXin:platformType];
-        }else if (platformType == UMSocialPlatformType_Sina)
-        {
-            
-        }else if (platformType == UMSocialPlatformType_Sms)
-        {
-            
-        }else if (platformType == UMSocialPlatformType_Email)
-        {
-            
-        }else if (platformType == UMSocialPlatformType_Qzone)
-        {
-            
-        }else if (platformType == UMSocialPlatformType_QQ)
-        {
-            
-        }else
-        {
-            
         }
-        
     }];
     
     

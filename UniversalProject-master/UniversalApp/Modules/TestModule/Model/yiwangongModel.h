@@ -20,5 +20,7 @@
 @property (strong ,nonatomic) NSString *orderState; //状态
 @property (assign ,nonatomic) NSInteger woekDuration;//工作时长
 @property (strong ,nonatomic) NSString *workType; //工种
+@property (assign ,nonatomic) NSInteger recruitInfoId;
+
 + (instancetype)creatRankingTotalModelWith:(NSDictionary *)dict;
 @end

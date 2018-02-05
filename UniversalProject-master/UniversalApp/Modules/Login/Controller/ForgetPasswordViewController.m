@@ -12,7 +12,7 @@
 {
     UITextField *userPhone;         //手机号
     UITextField *validationCode;    //验证码
-    UIButton *getVerificationcCode; //登录按钮
+    UIButton *getVerificationcCode; //按钮
 }
 @end
 
@@ -23,7 +23,7 @@
     self.title = @"忘记密码";
 //    self.view.backgroundColor = [UIColor hx_colorWithHexRGBAString:kBeijingColor];
     // Do any additional setup after loading the view.
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     [self initForgetPasswordView];
 }
 

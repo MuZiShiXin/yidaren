@@ -70,7 +70,6 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@/Expert/MyOrder/mySelfOrderinfo",kPRTURL];
     
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(userManager.curUserInfo.userInfoId),@"userInfoId",@(_CoutPage),@"currentPage",@(10),@"pageSize", nil];
-    
     [BaseHttpTool POST:urlStr params:parameters success:^(id  _Nullable responseObj) {
         NSInteger result = [[responseObj valueForKey:@"result"] intValue];
         NSArray *resultDic = [[responseObj objectForKeyWithNullDetection:@"data"] objectForKeyWithNullDetection:@"list"];
@@ -79,7 +78,6 @@
             for (int i = 0; i < resultDic.count; i++) {
                 MyDingDangModel *mode = [MyDingDangModel creatRankingTotalModelWith:resultDic[i]];
                 [self.ModelDic addObject:mode];
-            
             }
             [self mainTableView];
             [self requestDataCompleted];

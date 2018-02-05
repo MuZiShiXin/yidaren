@@ -18,6 +18,10 @@ typedef void (^GongDanXiangQingSBlock)(BOOL);
 //@property (strong, nonatomic) HomeModel *homeModel;
 @property (assign, nonatomic) NSInteger recruitInfoId;
 
+
+@property (assign, nonatomic) CGFloat x;
+@property (assign, nonatomic) CGFloat y;
+
 @property (strong ,nonatomic) BMKMapView *mapView;
 
 @property (strong, nonatomic) IBOutlet UIImageView *darentouxiangImageView;

@@ -57,6 +57,7 @@
 		18056E3A1FF226B40090C45F /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 18056E2F1FF226B30090C45F /* UIColor+Hex.m */; };
 		1806AFE820232F8A0011DF46 /* UIViewController+BackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806AFE720232F8A0011DF46 /* UIViewController+BackButtonHandler.m */; };
 		181B210F1FF38F720098ADD6 /* UserInfoQueryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181B210E1FF38F720098ADD6 /* UserInfoQueryModel.m */; };
+		182608F120272E8100F234D9 /* BMKLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182608F020272E8000F234D9 /* BMKLocationKit.framework */; };
 		182FECC42003E416001AF72A /* BaiduMapAPI_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182FECBD2003E415001AF72A /* BaiduMapAPI_Search.framework */; };
 		182FECC52003E416001AF72A /* BaiduMapAPI_Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182FECBE2003E415001AF72A /* BaiduMapAPI_Utils.framework */; };
 		182FECC62003E416001AF72A /* BaiduMapAPI_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182FECBF2003E415001AF72A /* BaiduMapAPI_Map.framework */; };
@@ -439,6 +440,7 @@
 		1806AFE720232F8A0011DF46 /* UIViewController+BackButtonHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BackButtonHandler.m"; sourceTree = "<group>"; };
 		181B210D1FF38F720098ADD6 /* UserInfoQueryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoQueryModel.h; sourceTree = "<group>"; };
 		181B210E1FF38F720098ADD6 /* UserInfoQueryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoQueryModel.m; sourceTree = "<group>"; };
+		182608F020272E8000F234D9 /* BMKLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BMKLocationKit.framework; sourceTree = "<group>"; };
 		182FECBD2003E415001AF72A /* BaiduMapAPI_Search.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Search.framework; path = Pods/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Search.framework; sourceTree = "<group>"; };
 		182FECBE2003E415001AF72A /* BaiduMapAPI_Utils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Utils.framework; path = Pods/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Utils.framework; sourceTree = "<group>"; };
 		182FECBF2003E415001AF72A /* BaiduMapAPI_Map.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Map.framework; path = Pods/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework; sourceTree = "<group>"; };
@@ -960,6 +962,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				182608F120272E8100F234D9 /* BMKLocationKit.framework in Frameworks */,
 				183AD1632011EB1400427E42 /* AdSupport.framework in Frameworks */,
 				183AD1602011E42B00427E42 /* libresolv.tbd in Frameworks */,
 				183AD15E2011E42100427E42 /* UserNotifications.framework in Frameworks */,
@@ -2371,6 +2374,7 @@
 		296F9EBA1ECC64CE0063A255 /* UniversalApp */ = {
 			isa = PBXGroup;
 			children = (
+				182608F020272E8000F234D9 /* BMKLocationKit.framework */,
 				183AD1612011E43C00427E42 /* UniversalApp.entitlements */,
 				29AD6C5D1ED3E4D600B0879C /* AppDelegate */,
 				293D45A91ECD6926007C64A9 /* Modules */,

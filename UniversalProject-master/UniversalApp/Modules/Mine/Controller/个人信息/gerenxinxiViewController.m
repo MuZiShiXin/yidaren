@@ -203,15 +203,18 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    id traget = self.navigationController.interactivePopGestureRecognizer.delegate;
-    UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:traget action:nil];
-    [self.view addGestureRecognizer:pan];
+    if ([self.WanShanXinXi isEqualToString:@"完善信息"]) {
+        id traget = self.navigationController.interactivePopGestureRecognizer.delegate;
+        UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:traget action:nil];
+        [self.view addGestureRecognizer:pan];
+    }
 }
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     if ([self.WanShanXinXi isEqualToString:@"完善信息"]) {
         self.isShowLiftBack = NO;
         self.but.hidden = NO;
@@ -223,7 +226,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@/Expert/MySelfInfo/selMySelfInfo",kPRTURL];
     
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(userManager.curUserInfo.userInfoId),@"userInfoId", nil];
-    
+//    [MBProgressHUD showActivityMessageInView:@"加载中..."];
     [BaseHttpTool POST:urlStr params:parameters success:^(id  _Nullable responseObj) {
         NSInteger result = [[responseObj valueForKey:@"result"] intValue];
         NSDictionary *resultDic = [responseObj objectForKeyWithNullDetection:@"data"];
@@ -237,17 +240,36 @@
             [_shenfenzhengxinxiLabel setText:self.UserInfoModel.idNum];
             [_shenfenzhengImageView sd_setImageWithURL:[NSURL URLWithString:self.UserInfoModel.idPicAdd] placeholderImage:[UIImage imageNamed:@"yg_wd_grqy_nr_tp2"]];
             [_contentContactInformationTextView setText:self.UserInfoModel.skill];
-            NSMutableArray *Ary = [NSMutableArray array];
-            for (int i = 0; i <self.UserInfoModel.skillPics.count; i++) {
-                NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:[self.UserInfoModel.skillPics[i] objectForKey:@"skillPicAdd"]]];
-                if (data != nil) {
-                    UIImage *image = [UIImage imageWithData:data]; // 取得图片
-                    [Ary addObject:image];
-                    [self.imageAryId replaceObjectAtIndex:i withObject:[self.UserInfoModel.skillPics[i] objectForKey:@"skillPicId"]];
+            
+            
+            dispatch_queue_t globalQueue = dispatch_get_global_queue(0, 0);
+            dispatch_async(globalQueue, ^{
+                
+                NSLog(@"开始下载图片:%@", [NSThread currentThread]);
+                //NSString -> NSURL -> NSData -> UIImage
+                NSMutableArray *Ary = [NSMutableArray array];
+                
+                for (int i = 0; i <self.UserInfoModel.skillPics.count; i++) {
+                    NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:[self.UserInfoModel.skillPics[i] objectForKey:@"skillPicAdd"]]];
+                    if (data != nil) {
+                        UIImage *image = [UIImage imageWithData:data]; // 取得图片
+                        [Ary addObject:image];
+                        [self.imageAryId replaceObjectAtIndex:i withObject:[self.UserInfoModel.skillPics[i] objectForKey:@"skillPicId"]];
+                    }
                 }
-            }
-            [self.ImageAry addObjectsFromArray:[Ary mutableCopy]];
-            [self SetImageViewWithImage:self.ImageAry];
+                [self.ImageAry addObjectsFromArray:[Ary mutableCopy]];
+
+                //从子线程回到主线程(方式二：常用)
+                //组合：主队列异步执行
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"回到主线程:%@", [NSThread currentThread]);
+                    //更新界面
+//                    [MBProgressHUD hideHUD];
+
+
+                });
+                NSLog(@"xxxxxxxx");
+            });
         }
     } failure:^(NSError * _Nullable error) {
         NSLog(@"loginError:%@",error);
@@ -255,18 +277,12 @@
     }];
 }
 
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
     [self httpRequest];
     [self httpRequests];
-
-    
-    
-    
     _gerentouxiang.layer.cornerRadius = _gerentouxiang.frame.size.width / 2;
     //将多余的部分切掉
     _gerentouxiang.layer.masksToBounds = YES;
@@ -329,7 +345,7 @@
 {
     NSString *str = @"";
     if (userManager.curUserInfo.wanShanXinXi == 1) {
-        str = @"信息以完善,是否进入首页";
+        str = @"信息已完善,是否进入首页";
     }else
     {
         str = @"信息未完善,点击确定将退出当前登录";

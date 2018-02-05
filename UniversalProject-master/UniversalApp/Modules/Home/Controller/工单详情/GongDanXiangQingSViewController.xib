@@ -285,8 +285,8 @@
                                             <color key="textColor" red="0.42376053330000002" green="0.42410343890000002" blue="0.42381370070000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNq-EG-kvW">
-                                            <rect key="frame" x="132" y="258" width="25" height="11"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNq-EG-kvW">
+                                            <rect key="frame" x="132" y="258" width="31" height="11"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="11" id="fak-83-cq7"/>
                                                 <constraint firstAttribute="width" priority="100" constant="23.5" id="woa-qL-wqV"/>

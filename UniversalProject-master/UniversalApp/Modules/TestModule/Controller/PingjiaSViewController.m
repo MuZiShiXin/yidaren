@@ -86,13 +86,13 @@
 {
     NSString *urlStr = [NSString stringWithFormat:@"%@/Expert/Evaluate/evaluateOfIn",kPRTURL];
     
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys: self.pingjieneirongStr,@"evaluateCon",@(self.dingDanId),@"myOrderId",@"2",@"evaluateType", @(self.star1/20),@"managerScore", nil];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys: self.pingjieneirongStr,@"evaluateCon",@(self.dingDanId),@"myOrderId",@"2",@"evaluateType", @(self.star1/20),@"managerScore",@(userManager.curUserInfo.userInfoId),@"userDrId", nil];
     
     [BaseHttpTool POST:urlStr params:parameters success:^(id  _Nullable responseObj) {
         NSInteger result = [[responseObj valueForKey:@"result"] intValue];
         if (result == 1) {
             NSString *urlStr = [NSString stringWithFormat:@"%@/Expert/MyOrder/changeTheOrderState",kPRTURL];
-            NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(self.dingDanId),@"myOrderId",@(8),@"orderState",@(self.gongDanId),@"recruitInfoId", nil];
+            NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(self.dingDanId),@"myOrderId",@(15),@"orderState",@(self.gongDanId),@"recruitInfoId", nil];
 
             [BaseHttpTool POST:urlStr params:parameters success:^(id  _Nullable responseObj) {
                 NSInteger result = [[responseObj valueForKey:@"result"] intValue];
@@ -114,9 +114,6 @@
         NSLog(@"loginError:%@",error);
     }];
 }
-
-
-
 
 
 - (void)didReceiveMemoryWarning {

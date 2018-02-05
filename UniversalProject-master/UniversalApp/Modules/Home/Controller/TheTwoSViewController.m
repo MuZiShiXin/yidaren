@@ -124,11 +124,8 @@
             }
             
             [self mainTableView];
-            [self requestDataCompleted];
-        }else
-        {
-            
         }
+        [self requestDataCompleted];
     } failure:^(NSError * _Nullable error) {
         NSLog(@"loginError:%@",error);
         [self.mainTableView.mj_header endRefreshing];

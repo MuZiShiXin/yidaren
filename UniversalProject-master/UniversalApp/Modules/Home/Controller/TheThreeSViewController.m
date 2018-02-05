@@ -10,11 +10,14 @@
 #import "ShiJianSTableViewCell.h"
 #import "GongDanXiangQingSViewController.h"
 #import "HomeModel.h"
-@interface TheThreeSViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import <BaiduMapAPI_Location/BMKLocationService.h>
+
+@interface TheThreeSViewController ()<UITableViewDelegate,UITableViewDataSource,BMKLocationServiceDelegate>
 @property (nonatomic, strong) UITableView *mainTableView;
 @property (nonatomic, assign) NSInteger CoutPage;
 @property ( nonatomic ,strong) NSMutableArray *ModelDic;
 @property (nonatomic, assign) NSInteger pages;
+@property (nonatomic, strong) BMKLocationService *locService;
 
 @end
 
@@ -68,7 +71,7 @@
 {
     NSString *urlStr = [NSString stringWithFormat:@"%@/Expert/ExpertHomePage/theExpertHomeByPage",kPRTURL];
     
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(userManager.curUserInfo.userInfoId),@"userInfoId",@(_CoutPage),@"currentPage",@(3),@"orderType",@(10),@"pageSize", nil];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@(userManager.curUserInfo.userInfoId),@"userInfoId",@(_CoutPage),@"currentPage",@(3),@"orderType",@(10),@"pageSize",@(_locService.userLocation.location.coordinate.longitude),@"x",@(_locService.userLocation.location.coordinate.latitude),@"y", nil];
     
     [BaseHttpTool POST:urlStr params:parameters success:^(id  _Nullable responseObj) {
         NSInteger result = [[responseObj valueForKey:@"result"] intValue];
@@ -80,17 +83,44 @@
                 [self.ModelDic addObject:mode];
             }
             [self mainTableView];
-            [self requestDataCompleted];
-        }else
-        {
-            
         }
+        [self requestDataCompleted];
+
     } failure:^(NSError * _Nullable error) {
         NSLog(@"loginError:%@",error);
         [self.mainTableView.mj_header endRefreshing];
         [self.mainTableView.mj_footer endRefreshing];
     }];
 }
+
+
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+
+{
+    
+    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
+    if (userLocation.location.coordinate.latitude != 0 && userLocation.location.coordinate.latitude != 0) {
+        [self httpRequest];
+    }else
+    {
+        [self httpRequest];
+    }
+    [self.locService stopUserLocationService];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    [super viewWillAppear:animated];
+    _locService = [[BMKLocationService alloc]init];
+    _locService.delegate = self;
+    //启动LocationService
+    [_locService startUserLocationService];
+    
+    //    [self httpRequest];
+}
+
+
 
 
 - (void)viewDidLoad {
