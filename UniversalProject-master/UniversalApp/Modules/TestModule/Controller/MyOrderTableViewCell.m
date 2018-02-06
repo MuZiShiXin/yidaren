@@ -33,6 +33,7 @@
 - (void)initSubViewsWithIndexPath:(NSIndexPath *)indexPath MyDingDangModel:(MyDingDangModel *)Model
 {
 //    [_touxiang sd_setImageWithURL:[NSURL URLWithString:Model.headPicAdd] placeholderImage:[UIImage imageNamed:@"yg_sy_nr_tp1"]];
+    self.DingDangModel = Model;
     [_touxiang sd_setImageWithURL:[NSURL URLWithString:Model.headPicAdd]];
     [_gongdanbiaoti setText:Model.workTotal];
     [_fabushijian setText:Model.issueTm];
@@ -68,6 +69,8 @@
 - (IBAction)daipingjiaBtnS {
     NSLog(@"待评价按钮");
     PingjiaSViewController *PingjiaSVC = [[PingjiaSViewController alloc]init];
+    PingjiaSVC.dingDanId = self.DingDangModel.myOrderId;
+    PingjiaSVC.gongDanId = self.DingDangModel.recruitInfoId;
     [self.Navi pushViewController:PingjiaSVC animated:YES];
 }
 

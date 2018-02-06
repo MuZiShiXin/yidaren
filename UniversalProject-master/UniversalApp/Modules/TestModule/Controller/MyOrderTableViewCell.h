@@ -11,5 +11,7 @@
 @interface MyOrderTableViewCell : UITableViewCell
 @property (nonatomic ,strong)UINavigationController *Navi;
 @property (nonatomic ,strong)NSString *ButtonNameStr;
+@property (nonatomic ,strong)MyDingDangModel *DingDangModel;
 - (void)initSubViewsWithIndexPath:(NSIndexPath *)indexPath MyDingDangModel:(MyDingDangModel *)Model;
+
 @end

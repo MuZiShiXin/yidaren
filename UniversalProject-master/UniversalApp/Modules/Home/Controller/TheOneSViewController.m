@@ -102,7 +102,7 @@
     _locService.delegate = self;
     //启动LocationService
     [_locService startUserLocationService];
-    [self httpRequest];
+//    [self httpRequest];
 }
 
 - (void)viewDidLoad {

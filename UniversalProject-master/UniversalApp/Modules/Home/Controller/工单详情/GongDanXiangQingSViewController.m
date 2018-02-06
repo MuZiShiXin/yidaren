@@ -98,7 +98,6 @@
     
     [_gonzuobiaotiLabel setText:self.model.workTotal];
     [_chengdanshuLabel setText:[NSString stringWithFormat:@"%ld单",(long)self.model.sussOrderNumber]];
-    [_pingfenLabel setText:[NSString stringWithFormat:@"%ld",(long)self.model.evaluateCore]];
     [self xingxing:self.model.evaluateCorexx];
     [_gongqianLabel setText:[NSString stringWithFormat:@"%.2f",self.model.pay]];
     [_danweiLabel setText:self.model.payUnit];
@@ -245,31 +244,21 @@
     //yg_sy_gdpj_nr_tb3 没星
     if ((douNumber <= 0.5 && douNumber > 0.0) || (douNumber <= 1.5 && douNumber > 1.0) || (douNumber <= 2.5 && douNumber > 2.0) || (douNumber <= 3.5 && douNumber > 3.0) || (douNumber <= 4.5 && douNumber > 4.0)){
         if ((douNumber <= 0.5 && douNumber > 0.0)) {
-            [_xingxingImageView1 setImage:[UIImage imageNamed:banxing]];
             [_zhangguixingxing1 setImage:[UIImage imageNamed:banxing]];
 
         }else if ((douNumber <= 1.5 && douNumber > 1.0))
         {
-            [_xingxingImageView1 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView2 setImage:[UIImage imageNamed:banxing]];
             [_zhangguixingxing1 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing2 setImage:[UIImage imageNamed:banxing]];
 
         }else if ((douNumber <= 2.5 && douNumber > 2.0))
         {
-            [_xingxingImageView1 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView2 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView3 setImage:[UIImage imageNamed:banxing]];
             [_zhangguixingxing1 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing2 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing3 setImage:[UIImage imageNamed:banxing]];
 
         }else if ((douNumber <= 3.5 && douNumber > 3.0))
         {
-            [_xingxingImageView1 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView2 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView3 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView4 setImage:[UIImage imageNamed:banxing]];
             [_zhangguixingxing1 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing2 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing3 setImage:[UIImage imageNamed:quanxing]];
@@ -277,11 +266,6 @@
 
         }else if ((douNumber <= 4.5 && douNumber > 4.0))
         {
-            [_xingxingImageView1 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView2 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView3 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView4 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView5 setImage:[UIImage imageNamed:banxing]];
             [_zhangguixingxing1 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing2 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing3 setImage:[UIImage imageNamed:quanxing]];
@@ -292,29 +276,19 @@
         
     }else if ((douNumber <= 1.0 && douNumber > 0.5) || (douNumber <= 2.0 && douNumber > 1.5) || (douNumber <= 3.0 && douNumber > 2.5) || (douNumber <= 4.0 && douNumber > 3.5) || (douNumber <= 5.0 && douNumber > 4.5)){
         if ((douNumber <= 1.0 && douNumber > 0.5)) {
-            [_xingxingImageView1 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing1 setImage:[UIImage imageNamed:quanxing]];
         }else if ((douNumber <= 2.0 && douNumber > 1.5))
         {
-            [_xingxingImageView1 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView2 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing1 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing2 setImage:[UIImage imageNamed:quanxing]];
         }else if ((douNumber <= 3.0 && douNumber > 2.5))
         {
-            [_xingxingImageView1 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView2 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView3 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing1 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing2 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing3 setImage:[UIImage imageNamed:quanxing]];
 
         }else if ((douNumber <= 4.0 && douNumber > 3.5))
         {
-            [_xingxingImageView1 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView2 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView3 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView4 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing1 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing2 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing3 setImage:[UIImage imageNamed:quanxing]];
@@ -322,17 +296,11 @@
 
         }else if ((douNumber <= 5.0 && douNumber > 4.5))
         {
-            [_xingxingImageView1 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView2 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView3 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView4 setImage:[UIImage imageNamed:quanxing]];
-            [_xingxingImageView5 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing1 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing2 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing3 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing4 setImage:[UIImage imageNamed:quanxing]];
             [_zhangguixingxing5 setImage:[UIImage imageNamed:quanxing]];
-
         }
         
     }

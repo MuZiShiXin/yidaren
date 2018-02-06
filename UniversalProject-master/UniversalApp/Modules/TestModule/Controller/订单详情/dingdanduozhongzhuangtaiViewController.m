@@ -510,7 +510,7 @@
             if (_timer==nil) {
                 
                 
-                _timer = [NSTimer scheduledTimerWithTimeInterval:3.0f
+                _timer = [NSTimer scheduledTimerWithTimeInterval:900.0f
                                                           target:self
                                                         selector:@selector(timerAction)
                                                         userInfo:nil

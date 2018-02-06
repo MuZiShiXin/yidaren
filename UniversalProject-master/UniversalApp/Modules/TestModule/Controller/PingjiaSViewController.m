@@ -86,7 +86,13 @@
 {
     NSString *urlStr = [NSString stringWithFormat:@"%@/Expert/Evaluate/evaluateOfIn",kPRTURL];
     
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys: self.pingjieneirongStr,@"evaluateCon",@(self.dingDanId),@"myOrderId",@"2",@"evaluateType", @(self.star1/20),@"managerScore",@(userManager.curUserInfo.userInfoId),@"userDrId", nil];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
+    self.pingjieneirongStr,@"evaluateCon",
+         @(self.dingDanId),@"myOrderId",
+                      @"2",@"evaluateType",
+             @(self.star1/20),@"managerScore",
+     @(userManager.curUserInfo.userInfoId),@"userDrId",
+                                nil];
     
     [BaseHttpTool POST:urlStr params:parameters success:^(id  _Nullable responseObj) {
         NSInteger result = [[responseObj valueForKey:@"result"] intValue];
